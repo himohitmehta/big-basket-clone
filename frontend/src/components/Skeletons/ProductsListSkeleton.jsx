@@ -6,7 +6,7 @@ import ProductCardSkeleton from "./ProductCardSkeleton";
 export default function ProductsListSkelton() {
 	return (
 		<Grid container spacing={3}>
-			{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+			{[1, 2, 3, 4, 5, ].map((item) => (
 				<Grid item md={2.4} sm={4} xs={6} key={item}>
 					<ProductCardSkeleton />
 				</Grid>
