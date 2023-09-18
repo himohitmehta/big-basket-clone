@@ -1,6 +1,7 @@
 import {
 	Box,
 	Button,
+	CircularProgress,
 	Dialog,
 	Stack,
 	TextField,
@@ -20,11 +21,13 @@ export default function LoginDialog({ open, handleClose }) {
 	const [email, setEmail] = React.useState("");
 	const [password, setPassword] = React.useState("");
 	const [cookies, setCookie] = useCookies(["access_token"]);
+	const [loading, setLoading] = React.useState(false);
 	const dispatch = useDispatch();
 	const handleClickLoginButton = (e) => {
 		e.preventDefault();
 		console.log("login button clicked");
 		const URL = API_URL.AUTH.LOGIN;
+		setLoading(true);
 		const requestOptions = {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -33,6 +36,7 @@ export default function LoginDialog({ open, handleClose }) {
 		fetch(URL, requestOptions)
 			.then((response) => response.json())
 			.then((data) => {
+				setLoading(false);
 				if (data.status === "success") {
 					setCookie("access_token", data.result.token, {
 						path: "/",
@@ -50,6 +54,8 @@ export default function LoginDialog({ open, handleClose }) {
 				console.log(data);
 			})
 			.catch((error) => {
+				console.log(error);
+				setLoading(false);
 				toast.error(error.message || error.error);
 			});
 	};
@@ -97,7 +103,14 @@ export default function LoginDialog({ open, handleClose }) {
 							variant="contained"
 							sx={{ textTransform: "none" }}
 						>
-							{" "}
+							{loading && (
+								<CircularProgress
+									size={20}
+									thickness={5}
+									color="inherit"
+									sx={{ mr: 2 }}
+								/>
+							)}{" "}
 							Login
 						</Button>
 					</Stack>

@@ -89,7 +89,14 @@ export default function ProductCard({
 				}}
 				fullWidth
 			>
-				{loading && <CircularProgress size={20} thickness={3} />}
+				{loading && (
+					<CircularProgress
+						size={20}
+						thickness={5}
+						color="inherit"
+						sx={{ mr: 2 }}
+					/>
+				)}
 				Add
 			</Button>
 		</Card>
