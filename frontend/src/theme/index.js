@@ -3,6 +3,9 @@ const theme = createTheme({
 	// the typography object is used to style the text
 	typography: { fontFamily: "Inter, sans-serif" },
 	palette: {
+		primary:{
+			main:"#CC0000"
+		},
 		mode: "light",
 		green: "#00BFA6",
 		amber: "#fbbc04",

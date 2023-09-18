@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
 import AppImage from "./AppImage";
 import { Link } from "react-router-dom";
-import { Box, Button, Card, Typography } from "@mui/material";
+import { Box, Button, Card, CircularProgress, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { addProductToCart } from "../../store/cart/cartSlice";
 import { toast } from "sonner";
+import React from "react";
 
 // the styles for the Movie Card Components
 const styles = {
@@ -51,9 +52,14 @@ export default function ProductCard({
 }) {
 	const dispatch = useDispatch();
 	const handleAddToCart = () => {
-		dispatch(addProductToCart(data));
-		toast.success("Product added to cart!");
+		setLoading(true);
+		setTimeout(() => {
+			dispatch(addProductToCart(data));
+			toast.success("Product added to cart!");
+			setLoading(false);
+		}, 1200);
 	};
+	const [loading, setLoading] = React.useState(false);
 	return (
 		<Card sx={{ ...styles }} className={className} elevation={2}>
 			<AppImage src={imgSrc} className="product__card__poster" />
@@ -62,15 +68,30 @@ export default function ProductCard({
 				<Typography className="title "> {title}</Typography>
 				<Typography
 					sx={{
+						fontSize: "14px",
 						"& span": {
 							textDecoration: "line-through",
+							fontSize: "12px",
 						},
 					}}
 				>
 					{data.price} <span>{data.max_price}</span>
 				</Typography>{" "}
 			</Box>
-			<Button onClick={() => handleAddToCart()}>Add</Button>
+			<Button
+				onClick={() => handleAddToCart()}
+				variant="outlined"
+				sx={{
+					"&:hover": {
+						background: (theme) => theme.palette.primary.main,
+						color: (theme) => theme.palette.common.white,
+					},
+				}}
+				fullWidth
+			>
+				{loading && <CircularProgress size={20} thickness={3} />}
+				Add
+			</Button>
 		</Card>
 	);
 }

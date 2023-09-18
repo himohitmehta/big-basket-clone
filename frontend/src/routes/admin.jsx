@@ -79,7 +79,13 @@ export default function AdminPage() {
 						sx={{ my: 2 }}
 					/>
 				))}
-				<Button type="submit">Create Product</Button>
+				<Button
+					type="submit"
+					variant="contained"
+					sx={{ textTransform: "none" }}
+				>
+					Create Product
+				</Button>
 			</Stack>
 		</div>
 	);

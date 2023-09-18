@@ -48,10 +48,10 @@ export default function LoginDialog({ open, handleClose }) {
 					toast.error(data.message || data.error);
 				}
 				console.log(data);
-			}).catch(error=>{
-				toast.error(error.message || error.error);
-				
 			})
+			.catch((error) => {
+				toast.error(error.message || error.error);
+			});
 	};
 
 	return (
@@ -59,6 +59,7 @@ export default function LoginDialog({ open, handleClose }) {
 			<Box
 				sx={{
 					display: "flex",
+					maxWidth: "100%",
 				}}
 			>
 				<img
@@ -66,8 +67,10 @@ export default function LoginDialog({ open, handleClose }) {
 					alt="app helper image"
 					className="bg-image"
 				/>
-				<Box sx={{ p: 2 }}>
-					<Typography>Login / Sign Up</Typography>
+				<Box sx={{ p: 2, minWidth: "320px" }}>
+					<Typography variant="h5" mb={2}>
+						Login / Sign Up
+					</Typography>
 					<Stack component={"form"} onSubmit={handleClickLoginButton}>
 						<TextField
 							label="Enter Email"
@@ -89,7 +92,14 @@ export default function LoginDialog({ open, handleClose }) {
 							required
 							onChange={(e) => setPassword(e.target.value)}
 						/>
-						<Button type={"submit"}>Login</Button>
+						<Button
+							type={"submit"}
+							variant="contained"
+							sx={{ textTransform: "none" }}
+						>
+							{" "}
+							Login
+						</Button>
 					</Stack>
 				</Box>
 			</Box>

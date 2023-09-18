@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import ProductCard from "../ProductCard";
 
 const styles = {
@@ -60,11 +60,11 @@ const styles = {
 	},
 	title: {
 		color: (theme) => theme.palette.text.primary,
-		fontSize: " 32px",
+		fontSize: " 24px",
 		fontWeight: 500,
 		lineHeight: " 38.4px",
 		pb: 2,
-		fontStyle: "italic",
+		// fontStyle: "italic",
 	},
 };
 
@@ -72,10 +72,6 @@ const styles = {
 // used for best Sellers, new arrivals, etc.
 export default function ProductsSlider({ data = [], title, customSettings }) {
 	const [sliderRef, setSliderRef] = useState(null);
-	const [index, setIndex] = useState(0);
-	const beforeChange = (prev, next) => {
-		setIndex(next);
-	};
 
 	const settings = {
 		slidesToShow: 5,
@@ -105,6 +101,7 @@ export default function ProductsSlider({ data = [], title, customSettings }) {
 						{title}
 					</Typography>
 				)}
+				<Button sx={{ textTransform: "none" }}>Show More</Button>
 			</div>
 
 			{data.length > 0 && (

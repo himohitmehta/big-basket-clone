@@ -19,7 +19,7 @@ import BigBasketIcon from "../../assets/icons/big-basket-icon";
 import React from "react";
 import categoriesList from "../../constants/CategoriesList";
 import LoginDialog from "../common/LoginDialog";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { createStructuredSelector } from "reselect";
 import {
@@ -28,6 +28,8 @@ import {
 	selectCartTotal,
 } from "../../store/cart/cart.selectors";
 import { ShoppingBagOutlined } from "@mui/icons-material";
+import { signOutUser } from "../../store/user/userSlice";
+import { toast } from "sonner";
 
 const mapCartState = createStructuredSelector({
 	cartItems: selectCartItems,
@@ -43,6 +45,7 @@ export default function AppHeader() {
 	// react router hook to navigate in the application
 	const navigate = useNavigate();
 
+	const dispatch = useDispatch();
 	// handle the back button click to navigate to the previous page
 	// const handleBackButton = () => {
 	// 	navigate(-1);
@@ -68,6 +71,10 @@ export default function AppHeader() {
 	const handleClickLoginButton = () => {
 		console.log("login button clicked");
 		setOpenLoginDialog(true);
+	};
+	const handleLogout = () => {
+		dispatch(signOutUser());
+		toast.success("Logged out successfully!");
 	};
 	return (
 		<AppBar
@@ -115,7 +122,8 @@ export default function AppHeader() {
 					<Box>
 						<Tooltip title={"cart"}>
 							<IconButton
-							// onClick={() => router.push("/cart")}
+								// onClick={() => router.push("/cart")}
+								sx={{ mr: 3 }}
 							>
 								<Badge
 									badgeContent={count ?? 0}
@@ -124,20 +132,31 @@ export default function AppHeader() {
 									{" "}
 									<ShoppingBagOutlined color="black" />
 								</Badge>
-							</IconButton>
+							</IconButton>{" "}
 						</Tooltip>
 						{currentUser.email ? (
 							<>
-								<Button
+								{/* <Button
 									sx={{
 										textTransform: "initial",
+										mx: 2,
 									}}
 								>
-									Logged in as {currentUser.email}
-								</Button>
+									Logged in {currentUser.email}
+								</Button> */}
+
 								{currentUser.userRoles.includes("admin") && (
 									<Link to="/admin">Admin</Link>
 								)}
+								<Button
+									sx={{
+										textTransform: "initial",
+										mx: 2,
+									}}
+									onClick={() => handleLogout()}
+								>
+									Logout
+								</Button>
 							</>
 						) : (
 							<Button
@@ -145,6 +164,11 @@ export default function AppHeader() {
 								sx={{
 									background: "black",
 									textTransform: "initial",
+									color: "white",
+									"&:hover": {
+										background: "black",
+										color: "white",
+									},
 								}}
 							>
 								Login / Sign up
@@ -215,7 +239,9 @@ export default function AppHeader() {
 											);
 										}
 									}}
-									onClick={() => navigate(`/${item.key}`)}
+									onClick={() =>
+										item.key && navigate(`/${item.key}`)
+									}
 								>
 									{item.title}
 								</MenuItem>
@@ -239,7 +265,9 @@ export default function AppHeader() {
 											setSelectedSubMenu(item.subMenu);
 										}
 									}}
-									onClick={() => navigate(`/${item.key}`)}
+									onClick={() =>
+										item.key && navigate(`/${item.key}`)
+									}
 									// slot={Link}
 									// to={`?category=${item.key}`}
 								>
@@ -258,6 +286,10 @@ export default function AppHeader() {
 											fontSize: "13.2px",
 											fontWeight: 500,
 										}}
+										onClick={() =>
+											item.key && navigate(`/${item.key}`)
+										}
+
 										// slot={Link}
 										// to={`?subCategory=${item.key}`}
 									>
