@@ -47,7 +47,7 @@ export default function IndexPage() {
 	}, [category]);
 
 	const productsList = products;
-	if (navigation.state === "loading") {
+	if (loading) {
 		return <ProductsListSkelton />;
 	}
 
