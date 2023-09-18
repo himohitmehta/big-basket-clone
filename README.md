@@ -46,7 +46,7 @@ POST /api/products
 
 Get a product by id
 
-``` 
+```
 GET /api/products/:id
 ```
 
@@ -62,4 +62,6 @@ Delete a product
 DELETE /api/products/:id
 ```
 
-
+Deployed on :
+Backend: [https://big-basket-clone-backend.vercel.app/](https://big-basket-clone-backend.vercel.app/)
+Frontend: [https://big-basket-clone-frontend.vercel.app/](https://big-basket-clone-frontend.vercel.app/)
