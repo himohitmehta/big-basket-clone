@@ -10,8 +10,27 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.3",
+    "@mui/material": "^5.14.5",
+    "@reduxjs/toolkit": "^1.9.5",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-cookie": "^6.1.1",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.1.2",
+    "react-router-dom": "^6.15.0",
+    "react-slick": "^0.29.0",
+    "redux": "^4.2.1",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.4.2",
+    "reselect": "^4.1.8",
+    "slick-carousel": "^1.8.1",
+    "sonner": "^0.7.2",
+    "universal-cookie": "^6.1.1",
+    "use-debounce": "^9.0.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

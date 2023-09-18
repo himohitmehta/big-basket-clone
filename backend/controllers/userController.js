@@ -1,0 +1,51 @@
+const User = require("../models/userModel");
+const jwt = require("jsonwebtoken");
+
+const createToken = (_id) => {
+	return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
+};
+
+// login a user
+const loginUser = async (req, res) => {
+	const { email, password } = req.body;
+
+	try {
+		const user = await User.login(email, password);
+
+		// create a token
+		const token = createToken(user._id);
+
+		res.status(200).json({
+			result: { email, token, userRoles: user.userRoles },
+			message: "Successfully Logged In!",
+			status: "success",
+		});
+	} catch (error) {
+		res.status(400).json({
+			error: error.message,
+			status: "error",
+		});
+	}
+};
+
+// signup a user
+const signupUser = async (req, res) => {
+	const { email, password, userRoles } = req.body;
+
+	try {
+		const user = await User.signup(email, password, userRoles);
+
+		// create a token
+		const token = createToken(user._id);
+
+		res.status(200).json({
+			result: { email, token, userRoles: user.userRoles },
+			message: "Successfully Registered User!",
+			status: "success",
+		});
+	} catch (error) {
+		res.status(400).json({ error: error.message, status: "error" });
+	}
+};
+
+module.exports = { signupUser, loginUser };
